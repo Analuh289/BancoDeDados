@@ -1,0 +1,182 @@
+Use [DA123_Exer_G06] 
+
+GO 
+
+---+++++++++++++++++++++++++++++++++++ 
+
+ --CRIA AS TABELAS 
+
+---+++++++++++++++++++++++++++++++++++ 
+
+ 
+
+--Tabela para os dados do estoque  
+
+CREATE TABLE ESTOQUE ( 
+
+CODPRODUTO     smallint 	NOT NULL, 
+
+CDGBARRA           varchar(14)	NOT NULL, 
+
+VLRUNIT                money		NOT   NULL, 
+
+QUANTD                smallint	NOT  NULL, 
+
+UNIDADE               varchar(20)	NOT  NULL 
+
+); 
+
+go  
+
+ 
+
+--Tabela para os dados do produto 
+
+CREATE TABLE PRODUTO ( 
+
+CODPRODUTO    smallint		NOT NULL, 
+
+PRODUTO            varchar(50)      NOT NULL, 
+
+VLRCOMPRA       money 		NOT  NULL, 
+
+CODTIPO             smallint  	NOT NULL, 
+
+QUANTD              smallint 		NOT  NULL, 
+
+UNIDADE             varchar(40)	NOT  NULL 
+
+); 
+
+go 
+
+--Tabela para os dados do tipo do produto 
+
+CREATE TABLE TIPO ( 
+
+CODTIPO    smallint	NOT  NULL, 
+
+TIPO            varchar(20)	NOT  NULL 
+
+); 
+
+go 
+
+Tabela para os dados do fornecedor 
+
+CREATE TABLE FORNECEDOR ( 
+
+CODFORNECEDOR smallint	NOT  NULL, 
+
+FORNECEDOR	 varchar(50)	NOT NULL, 
+
+CNPJ 			 varchar(14) 	NOT NULL, 
+
+CODCIDADE		 smallint 	NOT NULL, 
+
+TELEFONE		 varchar(15) 	NOT NULL   
+
+) ; 
+
+go 
+
+--Tabela para os dados da cidade 
+
+CREATE TABLE CIDADE ( 
+
+CODCIDADE	 smallint	NOT  NULL, 
+
+CIDADE	 varchar (50)	NOT NULL 
+
+) ; 
+
+go 
+--Tabela relacional para fornecedor X produto 
+
+CREATE TABLE FORNECxPROD ( 
+
+CODFORNECEDOR  smallint 	NOT  NULL, 
+
+CODPRODUTO	  smallint	 NOT NULL 
+
+) ; 
+
+go 
+
+---+++++++++++++++++++++++++++++++++++  
+
+--CRIA AS CONSTRAINTS --- 
+
++++++++++++++++++++++++++++++++++++ 
+
+--CRIA AS PKs  
+
+ALTER TABLE  produto ADD CONSTRAINT  produto_codproduto_PK PRIMARY KEY (codproduto); 
+
+go 
+
+ALTER TABLE  tipo ADD CONSTRAINT  tipo_codtipo_PK PRIMARY KEY (codtipo); 
+
+go 
+
+ALTER TABLE cidade ADD CONSTRAINT cidade_codcidade_PK PRIMARY KEY (codcidade) ;  
+
+go 
+
+ALTER TABLE fornecedor ADD CONSTRAINT fornecedor_codfornecedor_PK PRIMARY KEY (codfornecedor) ;  
+
+go 
+
+ ALTER TABLE fornecxprod ADD CONSTRAINT fornec_prod_PK PRIMARY KEY (codfornecedor, codproduto) ;  
+
+go 
+
+--CRIA A FK 
+
+ALTER TABLE fornecxprod ADD CONSTRAINT fornecxprod_codtipo_codfornec_FK FOREIGN KEY (codproduto, codfornecedor) REFERENCES produto, fornecedor (codproduto, codfornecedor); 
+
+go 
+
+ALTER TABLE fornecedor ADD CONSTRAINT fornecedor_codcidade_FK FOREIGN KEY (codcidade) REFERENCES cidade (codcidade); 
+
+go 
+
+ALTER TABLE estoque ADD CONSTRAINT estoque_codproduto_FK FOREIGN KEY (codproduto) REFERENCES produto(codproduto); 
+
+go 
+
+ALTER TABLE produto ADD CONSTRAINT produto_codtipo_FK FOREIGN KEY (codtipo) REFERENCES tipo (codtipo); 
+
+go 
+
+--CRIA AS UNIQUEs 
+
+ALTER TABLE estoque ADD CONSTRAINT estoque_codgbarra_uq UNIQUE (codgbarra); 
+
+go 
+
+ALTER TABLE fornecedor ADD CONSTRAINT fornecedor_cnpj_uq UNIQUE (cnpj); 
+
+go 
+--CRIA O CHECK 
+
+ALTER TABLE estoque ADD CONSTRAINT estoque_quantidade_ck CHECK (quantidade >= 0); 
+
+Go 
+
+ALTER TABLE estoque ADD CONSTRAINT estoque_vlrunit_ck CHECK (vlrunit >= 0); 
+
+go 
+
+ALTER TABLE produto ADD CONSTRAINT produto_vlrcompra_ck CHECK (vlrcompra >= 0); 
+
+go 
+--CRIA O DEFAULT 
+
+ALTER TABLE estoque ADD CONSTRAINT estoque_quantidade_df DEFAULT (0) FOR quantidade; 
+
+go 
+
+ 
+
+ 
