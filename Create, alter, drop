@@ -1,0 +1,27 @@
+-- Criando a tabela de Autores
+CREATE TABLE AUTOR (
+    id_autor INT NOT NULL,
+    nome VARCHAR(100) NOT NULL,
+    nacionalidade VARCHAR(50)
+);
+
+-- Criando a tabela de Livros
+CREATE TABLE LIVRO (
+    id_livro INT NOT NULL,
+    titulo VARCHAR(150) NOT NULL,
+    ano_publicacao INT,
+    id_autor INT -- Esta será a nossa chave estrangeira mais tarde
+);
+
+-- Alterando a tabela AUTOR para adicionar a Chave Primária
+ALTER TABLE AUTOR
+ADD CONSTRAINT PK_AUTOR PRIMARY KEY (id_autor);
+
+-- Alterando a tabela LIVRO para adicionar a Chave Primária
+ALTER TABLE LIVRO
+ADD CONSTRAINT PK_LIVRO PRIMARY KEY (id_livro);
+
+-- Alterando a tabela LIVRO para adicionar a Chave Estrangeira
+ALTER TABLE LIVRO
+ADD CONSTRAINT FK_LIVRO_AUTOR 
+FOREIGN KEY (id_autor) REFERENCES AUTOR(id_autor);
