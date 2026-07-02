@@ -1,0 +1,23 @@
+Exibir a média salarial agrupada por cargo profissional SQL
+SELECT cargo, AVG(salario) AS media_salarial 
+FROM Funcionarios 
+GROUP BY cargo;
+
+
+Mostrar o maior e o menor salário pago dentro de cada departamento SQL
+SELECT id_departamento, MAX(salario) AS maior_salario, MIN(salario) AS menor_salario 
+FROM Funcionarios 
+GROUP BY id_departamento;
+
+9. Listar os departamentos que possuem uma folha salarial superior a R$ 50.000,00
+SQL
+SELECT id_departamento, SUM(salario) AS total_salarios 
+FROM Funcionarios 
+GROUP BY id_departamento 
+HAVING SUM(salario) > 50000.00;
+
+10. Contar quantos projetos existem para cada tipo de status cadastrado
+SQL
+SELECT status, COUNT(*) AS total_projetos 
+FROM Projetos 
+GROUP BY status;
