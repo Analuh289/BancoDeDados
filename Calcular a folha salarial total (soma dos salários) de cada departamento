@@ -1,0 +1,3 @@
+SELECT id_departamento, SUM(salario) AS folha_salarial_total 
+FROM Funcionarios 
+GROUP BY id_departamento;
