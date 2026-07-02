@@ -1,0 +1,6 @@
+CREATE TABLE Departamentos (
+    id_departamento INT AUTO_INCREMENT,
+    nome_depto VARCHAR(50) NOT NULL,
+    orcamento DECIMAL(12, 2) DEFAULT 0.00,
+    CONSTRAINT pk_departamentos PRIMARY KEY (id_departamento)
+);
