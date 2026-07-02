@@ -1,0 +1,19 @@
+-- Inserindo alguns dados de exemplo para o teste
+INSERT INTO Alunos (nome, email) VALUES 
+('Ana Luiza', 'ana@email.com'),
+('Carlos Silva', 'carlos@email.com');
+
+INSERT INTO Matriculas (id_alumno, curso, valor_curso) VALUES 
+(1, 'Banco de Dados SQL', 150.00),
+(1, 'Lógica de Programação', 100.00),
+(2, 'Banco de Dados SQL', 150.00);
+
+-- Query utilizando SELECT, JOIN e GROUP BY:
+-- Objetivo: Saber quanto cada aluno investiu no total em cursos
+SELECT 
+    A.nome AS Nome_Aluno,
+    COUNT(M.id_matricula) AS Total_Cursos,
+    SUM(M.valor_curso) AS Total_Investido
+FROM Alunos A
+INNER JOIN Matriculas M ON A.id_alumno = M.id_alumno
+GROUP BY A.id_alumno, A.nome;
