@@ -1,0 +1,19 @@
+-- 1. Criando a tabela de Alunos (Tabela Pai)
+CREATE TABLE Alunos (
+    id_alumno INT AUTO_INCREMENT,
+    nome VARCHAR(100) NOT NULL,
+    email VARCHAR(100) UNIQUE NOT NULL,
+    data_cadastro DATE DEFAULT (CURRENT_DATE),
+    CONSTRAINT pk_alunos PRIMARY KEY (id_alumno) -- Definição da Chave Primária
+);
+
+-- 2. Criando a tabela de Matriculas (Tabela Filho)
+CREATE TABLE Matriculas (
+    id_matricula INT AUTO_INCREMENT,
+    id_alumno INT,                         -- Coluna que vai receber a FK
+    curso VARCHAR(100) NOT NULL,
+    valor_curso DECIMAL(10, 2) NOT NULL,
+    data_matricula DATE DEFAULT (CURRENT_DATE),
+    CONSTRAINT pk_matriculas PRIMARY KEY (id_matricula), -- Chave Primária
+    CONSTRAINT fk_matriculas_alunos FOREIGN KEY (id_alumno) REFERENCES Alunos(id_alumno) -- Chave Estrangeira
+);
