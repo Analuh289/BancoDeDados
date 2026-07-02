@@ -1,0 +1,7 @@
+CREATE TABLE Projetos (
+    id_projeto INT AUTO_INCREMENT,
+    nome_projeto VARCHAR(100) NOT NULL,
+    status VARCHAR(20) DEFAULT 'Planejamento',
+    data_inicio DATE,
+    CONSTRAINT pk_projetos PRIMARY KEY (id_projeto)
+);
