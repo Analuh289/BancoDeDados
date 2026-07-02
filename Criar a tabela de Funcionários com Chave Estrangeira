@@ -1,0 +1,10 @@
+CREATE TABLE Funcionarios (
+    id_funcionario INT AUTO_INCREMENT,
+    nome VARCHAR(100) NOT NULL,
+    cargo VARCHAR(50) DEFAULT 'Assistente',
+    salario DECIMAL(10, 2) NOT NULL,
+    data_admissao DATE DEFAULT (CURRENT_DATE),
+    id_departamento INT,
+    CONSTRAINT pk_funcionarios PRIMARY KEY (id_funcionario),
+    CONSTRAINT fk_func_depto FOREIGN KEY (id_departamento) REFERENCES Departamentos(id_departamento)
+);
