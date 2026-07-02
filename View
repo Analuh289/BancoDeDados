@@ -1,0 +1,12 @@
+-- Criando a View baseada na consulta anterior
+CREATE VIEW vw_resumo_financeiro_alunos AS
+SELECT 
+    A.nome AS Nome_Aluno,
+    COUNT(M.id_matricula) AS Total_Cursos,
+    SUM(M.valor_curso) AS Total_Investido
+FROM Alunos A
+INNER JOIN Matriculas M ON A.id_alumno = M.id_alumno
+GROUP BY A.id_alumno, A.nome;
+
+-- Agora, para ver o resultado consolidado, basta fazer um SELECT simples na VIEW:
+SELECT * FROM vw_resumo_financeiro_alunos;
