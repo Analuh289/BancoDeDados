@@ -1,0 +1,3 @@
+SELECT id_departamento, COUNT(*) AS qtd_funcionarios 
+FROM Funcionarios 
+GROUP BY id_departamento;
