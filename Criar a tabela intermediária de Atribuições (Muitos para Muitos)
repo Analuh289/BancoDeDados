@@ -1,0 +1,8 @@
+CREATE TABLE Atribuicoes_Projetos (
+    id_funcionario INT,
+    id_projeto INT,
+    horas_alocadas INT DEFAULT 40,
+    CONSTRAINT pk_atribuicoes PRIMARY KEY (id_funcionario, id_projeto), -- Chave Primária Composta
+    CONSTRAINT fk_atrib_func FOREIGN KEY (id_funcionario) REFERENCES Funcionarios(id_funcionario),
+    CONSTRAINT fk_atrib_proj FOREIGN KEY (id_projeto) REFERENCES Projetos(id_projeto)
+);
