@@ -1,0 +1,27 @@
+SELECT nome_produto, preco FROM Produtos 
+WHERE preco > 100.00 
+ORDER BY preco DESC;
+
+SELECT * FROM Pedidos 
+WHERE data_pedido BETWEEN '2026-01-01' AND '2026-12-31';
+
+SELECT * FROM Pedidos 
+WHERE data_pedido BETWEEN '2026-01-01' AND '2026-12-31';
+
+SELECT * FROM Produtos 
+WHERE categoria = 'Eletrônicos' AND estoque < 10;
+
+SELECT nome, email FROM Clientes 
+WHERE data_cadastro < '2025-01-01' AND nome LIKE 'A%';
+
+SELECT cidade, COUNT(*) AS total_clientes 
+FROM Clientes 
+GROUP BY cidade;
+
+SELECT categoria, AVG(preco) AS preco_medio 
+FROM Produtos 
+GROUP BY categoria;
+
+SELECT SUM(total) AS faturamento_total 
+FROM Pedidos 
+WHERE status = 'Concluído';
