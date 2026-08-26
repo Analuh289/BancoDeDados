@@ -1,0 +1,53 @@
+-- 13. INNER JOIN
+SELECT 
+    a.nome AS aluno, 
+    m.data_matricula, 
+    c.nome AS curso
+FROM Matriculas m
+INNER JOIN Alunos a ON m.aluno_id = a.id
+INNER JOIN Cursos c ON m.curso_id = c.id;
+
+-- 14. LEFT JOIN
+SELECT 
+    c.nome AS curso, 
+    COUNT(m.id) AS total_alunos
+FROM Cursos c
+LEFT JOIN Matriculas m ON c.id = m.curso_id
+GROUP BY c.id, c.nome;
+
+-- 15. Agregação Simples
+SELECT 
+    AVG(EXTRACT(YEAR FROM AGE(data_nascimento))) AS media_idade_alunos,
+    MAX(preco) AS maior_preco,
+    SUM(preco) AS valor_total_estoque
+FROM Alunos, Produtos;
+
+-- 16. GROUP BY
+SELECT 
+    vendedor_id, 
+    SUM(valor_total) AS total_vendas
+FROM Vendas
+WHERE data_venda BETWEEN '2026-01-01' AND '2026-01-31'
+GROUP BY vendedor_id;
+
+-- 17. HAVING
+SELECT 
+    cliente_id, 
+    COUNT(id) AS total_compras
+FROM Pedidos
+WHERE data_pedido >= CURRENT_DATE - INTERVAL '6 months'
+GROUP BY cliente_id
+HAVING COUNT(id) > 5;
+
+-- 18. Self-Join
+CREATE TABLE Funcionarios (
+    id SERIAL PRIMARY KEY,
+    nome VARCHAR(100),
+    gerente_id INT REFERENCES Funcionarios(id)
+);
+
+SELECT 
+    f.nome AS funcionario, 
+    g.nome AS gerente
+FROM Funcionarios f
+LEFT JOIN Funcionarios g ON f.gerente_id = g.id;
