@@ -1,0 +1,44 @@
+-- 19. Subconsulta Escalar
+SELECT nome, salario 
+FROM Funcionarios 
+WHERE salario > (SELECT AVG(salario) FROM Funcionarios);
+
+-- 20. Subconsulta NOT EXISTS
+SELECT a.id, a.nome 
+FROM Alunos a
+WHERE NOT EXISTS (
+    SELECT 1 FROM Matriculas m WHERE m.aluno_id = a.id
+);
+
+-- 21. Common Table Expression (CTE)
+WITH FaturamentoMensal AS (
+    SELECT 
+        DATE_TRUNC('month', data_pedido) AS mes,
+        SUM(valor_total) AS faturamento
+    FROM Pedidos
+    GROUP BY DATE_TRUNC('month', data_pedido)
+)
+SELECT mes, faturamento 
+FROM FaturamentoMensal 
+WHERE faturamento > 10000.00;
+
+-- 22. Window Function: RANK
+SELECT 
+    nome, 
+    categoria_id, 
+    preco,
+    RANK() OVER (PARTITION BY categoria_id ORDER BY preco DESC) AS pos_ranking
+FROM Produtos;
+
+-- 23. Window Function: SUM OVER
+SELECT 
+    id, 
+    data_movimentacao, 
+    valor,
+    SUM(valor) OVER (ORDER BY data_movimentacao ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW) AS saldo_acumulado
+FROM Transacoes;
+
+-- 24. Operações de Conjunto (UNION)
+SELECT nome, email, 'Pessoa Física' AS tipo FROM Clientes_PF
+UNION
+SELECT nome, email, 'Pessoa Jurídica' AS tipo FROM Clientes_PJ;
